@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contáctanos-MECARAPPI</title>
+    <link rel="stylesheet" href="css/style-contactanos.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+    <header>
+        <div class="logo">MECARAPPI</div>
+        </button>
+        <nav id="nav" class="nav">
+            <a href="Inicio.html">Inicio</a>
+            <a href="servicios.html">Servicio</a>
+            <a href="nosotros.html">Nosotros</a>
+            <a href="#" class="active">Contáctanos</a>
+        </nav>
+        <div class="btn-group">
+            <button class="btn">Iniciar Sesión</button>
+            <button onclick="window.location.href='registro.html'" class="btn btn-outline">Registrarse</button>
+
+        </div>
+        <button class="menu-toggle" id="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+    </header>
+
+    <main class="contact-container">
+        <h1>CONTÁCTANOS</h1>
+        <p class="subtitulo">¿Tienes alguna pregunta o necesitas asistencia?</p>
+        <div class="contact-content">
+            <form class="contact-form">
+                <h2>Envíanos un mensaje</h2>
+                <input type="text" placeholder="Nombre" required>
+                <input type="email" placeholder="Correo electrónico" required>
+                <textarea placeholder="Mensaje" rows="5" required></textarea>
+                <button type="submit" class="btn enviar">Enviar mensaje</button>
+            </form>
+
+            <div class="contact-info">
+                <h2>Información de contacto</h2>
+                <p><img src="Recursos/ubicacion.png" alt="Ubicación" class="icono"> Av. Separadora Industrial, Lima</p>
+                <p><img src="Recursos/correo.png" alt="Correo" class="icono"> 
+                    <a href="mailto:mecarappi@gmail.com">mecarappi@gmail.com</a>
+                </p>
+                <p><img src="Recursos/telefono.png" alt="Teléfono" class="icono"> (+51) 999 999 999</p>
+                <p><img src="Recursos/reloj.png" alt="Horario" class="icono"> Lun a Dom: 24 horas</p>
+            </div>
+            
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <p><strong>Contacto</strong></p>
+            <p>📞 +51 999999999</p>
+            <p>✉️ mecarappi@gmail.com</p>
+        </div>
+        <div>
+            <p><strong>Ubicación</strong></p>
+            <p>Av. Separadora Industrial, Lima</p>
+        </div>
+        <div>
+            <p><strong>Legal</strong></p>
+            <a href="#">Términos y condiciones</a><br>
+            <a href="#">Política y privacidad</a>
+        </div>
+    </footer>
+    <script src="javascript/script-contactanos.js"></script>
+</body>
+</html>
