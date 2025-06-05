@@ -1,0 +1,44 @@
+body {
+  background-color: #f0f2f5; /* Color de fondo general */
+  font-family: Arial, sans-serif; /* Asegura una fuente consistente */
+}
+
+.register-card {
+  /* Cambiado de login-card para especificidad si es necesario */
+  max-width: 480px; /* Un poco más ancho para formularios de registro */
+  border-radius: 15px;
+  background-color: #ffffff;
+}
+
+.meca-title {
+  color: #ff6600;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.form-control,
+.form-select {
+  /* Aplicar a selects también si los usas */
+  border-radius: 8px;
+}
+
+.btn-meca-primary {
+  background-color: #0d2f4b;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.btn-meca-primary:hover {
+  background-color: #0a2338;
+  color: white;
+}
+
+.login-link {
+  /* Enlace para ir a la página de login */
+  color: #007bff;
+  text-decoration: none;
+}
+.login-link:hover {
+  text-decoration: underline;
+}
