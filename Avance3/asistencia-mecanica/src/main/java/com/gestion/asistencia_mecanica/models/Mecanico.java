@@ -24,21 +24,27 @@ public class Mecanico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mecanico_id")
-    private Integer mecanicoId;
+    private Long mecanicoId;
 
     @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
 
-    @Column(name = "experiencia", nullable = false)
+    @Column(name = "experiencia", nullable = false) 
     private Integer experiencia;
 
-    @Column(name = "email", nullable = false, unique = true, length = 100)
+    @Column(name = "email", unique = true, length = 150) 
     private String email;
 
-    @Column(name = "telefono", length = 20)
+    @Column(name = "telefono", length = 15) 
     private String telefono;
 
-    @Column(name = "calificacion_promedio", precision = 3, scale = 2)
+    @Column(name = "calificacion_promedio", precision = 3, scale = 2) 
     private BigDecimal calificacionPromedio;
+
+    @Column(name = "ciudad", nullable = false, length = 50)
+    private String ciudad;
+
+    @Column(name = "disponible", nullable = false) 
+    private Boolean disponible;
 
 }
