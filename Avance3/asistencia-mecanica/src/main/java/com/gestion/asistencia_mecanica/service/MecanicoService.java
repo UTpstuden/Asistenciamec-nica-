@@ -19,7 +19,20 @@ import lombok.extern.slf4j.Slf4j;
 public class MecanicoService {
 
     private final MecanicoRepository mecanicoRepository;
+//JJ
+public MecanicoService(MecanicoRepository mecanicoRepository) {
+        this.mecanicoRepository = mecanicoRepository;
+    }
 
+    public List<Mecanico> buscarPorCiudadYDisponibilidad(String ciudad) {
+        return mecanicoRepository.findByCiudadAndDisponible(ciudad, true);
+    }
+
+     public Mecanico agregarMecanico(Mecanico mecanico) {
+        return mecanicoRepository.save(mecanico);
+    }
+//JJ
+    
     @Transactional(readOnly = true)
     public List<Mecanico> getAllMecanicos() {
         log.debug("Obteniendo lista de todos los mecánicos");
