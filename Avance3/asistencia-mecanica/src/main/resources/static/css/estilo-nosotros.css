@@ -1,9 +1,14 @@
 /* Fuente base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Robot', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     color: #333;
     background-color: #f9f9f9;
 }
@@ -17,7 +22,6 @@ header {
     padding: 1rem 2rem;
     background-color: #001F3F;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: sticky;
     top: 0;
     z-index: 1000;
 }
@@ -82,75 +86,127 @@ nav a:hover {
     background-color: #bbbbbb;
 }
 
+/*body*/
 
 .nosotros {
-  padding: 2rem;
-  background-color: #f9f9f9;
+    background-color: #f9f9f9;
 }
 
-.titulo {
-  text-align: left;
-  font-size: 2.5rem;
-  color: #001f3f;
-  margin-bottom: 1.5rem;
+.probar .titulo {
+    font-size: 8rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
 }
 
-.contenedor-nosotros,
-.contenedor-mision {
-  margin: 1rem;
+.probar {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9)), url('/Recursos/3\ mecanicos.png');
+    /* Ruta a tu imagen */
+    background-size: cover;
+    /* La imagen cubrirá todo el contenedor */
+    background-position: center;
+    /* Centra la imagen de fondo */
+    background-repeat: no-repeat;
+    /* Evita que la imagen se repita */
+    min-height: 600px;
+    /* Asegura una altura mínima para que la imagen sea visible */
+    display: flex;
+    /* Habilitamos Flexbox */
+    justify-content: center;
+    /* Centra horizontalmente los ítems hijos */
+    align-items: center;
+    /* Centra verticalmente los ítems hijos */
+    flex-direction: column;
 }
 
-.imagen-nosotros {
-  display: block;
-  max-width: 500rem;
-  height: auto;
-  border-radius: 10px;
+.contenedor-nosotros {
+    margin: 4rem;
 }
 
-.texto-nosotros,
-.texto-mision {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: #333;
+.texto-nosotros {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #333;
 }
 
-.texto-nosotros h2,
-.texto-mision h2 {
-  margin-top: 1.5rem;
-  color: #001F3F;
+.texto-nosotros h2 {
+    margin-top: 1.5rem;
+    color: #001F3F;
 }
+
+
+/* Nueva Sección de Misión y Visión */
+.mision-vision-container {
+    padding: 4rem;
+    color: #001F3F
+    
+}
+
+.mision-vision-container .titulo {
+    /* Sobreescribir si es necesario para esta sección */
+    font-size: 2.5rem;
+    /* O el tamaño que prefieras para este título */
+    color: #001F3F;
+    /* El color de tu encabezado principal */
+    margin-bottom: 1.5rem;
+}
+
+.mv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* Dos columnas, adaptables */
+    gap: 4rem;
+    /* Espacio entre las columnas */
+    margin-top: 1rem;
+}
+
+.mv-item h2 {
+    font-size: 1.5rem;
+}
+
+.mv-item p {
+    color: #333;
+}
+
+
 
 .valores {
-  background-color: #fff;
-  padding: 2rem;
-  text-align: center;
+    background-color: #f9f9f9;
+    padding: 4rem;
+    text-align: center;
+}
+
+.valores h1 {
+    font-size: 4rem;
+    color: #001f3f;
+    padding: 2rem;
 }
 
 .grid-valores {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 2rem;
-  max-width: 900px;
-  margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .valor {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .valor img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  margin-bottom: 0.5rem;
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
 }
 
 .valor p {
-  font-weight: bold;
-  color: #001f3f;
+    font-weight: bold;
+    color: #001f3f;
 }
+
 
 
 
@@ -178,7 +234,7 @@ footer a:hover {
 }
 
 @media (max-width: 910px) {
-     body {
+    body {
         font-size: 16px;
     }
 
@@ -191,7 +247,7 @@ footer a:hover {
         right: 0;
         width: 200px;
         padding: 1rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     nav.show {
@@ -217,6 +273,47 @@ footer a:hover {
         padding: 0.5rem;
         font-size: 0.9rem;
         width: 120px;
+    }
+
+    .probar {
+        min-height: 500px;
+        padding: 1rem;
+    }
+    
+    .contenido-nosotros {
+        padding: 1rem;
+    }
+    .probar .titulo {
+        font-size: 5rem; /* O el tamaño que consideres adecuado para móviles */
+    }
+
+    .mision-vision {
+        padding: 1.5rem;
+    }
+
+    .mision-vision .titulo {
+        font-size: 2rem;
+    }
+
+    .mv-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .mision-vision {
+        padding: 1.5rem;
+        /* Ajustar padding para móviles */
+    }
+
+    .mision-vision .titulo {
+        font-size: 2rem;
+        /* Ajustar tamaño de título para móviles */
+    }
+
+    .mv-grid {
+        grid-template-columns: 1fr;
+        /* Una sola columna en pantallas pequeñas */
+        gap: 1.5rem;
     }
 
 

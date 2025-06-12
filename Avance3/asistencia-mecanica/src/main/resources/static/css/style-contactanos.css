@@ -1,14 +1,9 @@
 /* Fuente base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: 'Robot', sans-serif;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     color: #333;
     background-color: #f9f9f9;
 }
@@ -34,9 +29,9 @@ header {
 }
 
 nav a.active {
-    color: #f97316;
-    font-weight: bold;
-    text-decoration: underline;
+  color: #f97316;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 nav a {
@@ -50,7 +45,6 @@ nav a {
 nav a:hover {
     color: #f97316;
 }
-
 .menu-toggle {
     display: none;
     background: none;
@@ -59,7 +53,6 @@ nav a:hover {
     font-size: 1.8rem;
     cursor: pointer;
 }
-
 /* Botones */
 .btn {
     background-color: #f97316;
@@ -88,60 +81,82 @@ nav a:hover {
 }
 
 
-.servicios-section {
-    padding: 1rem 5rem 4rem;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: #001F3F;
-}
 
-.contenido-servicio {
-    margin: auto;
+/* Contacto */
+.contact-container {
+    padding: 3rem 2rem;
     text-align: center;
-
 }
 
-.contenido-servicio h2 {
-    font-size: 4rem;
+.contact-container h1 {
     color: #001F3F;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
 }
 
-.contenido-servicio p {
-    font-size: 1.3rem;
+.subtitulo {
+    font-size: 1.1rem;
     margin-bottom: 2rem;
-    line-height: 1.5;
+    color: #333;
 }
 
-.servicios-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1.5rem;
+.contact-content {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
-.servicio-box {
-    background-color: #e0e0e0;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease;
+.contact-form, .contact-info {
+    background-color: #f1f1f1;
+    padding: 2rem;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 400px;
+    text-align: left;
 }
 
-.icono-servicio {
-    width: 60px;
-    height: 60px;
+.contact-form h2, .contact-info h2 {
     margin-bottom: 1rem;
+    color: #001F3F;
 }
 
-.servicio-box p {
-    margin: 0;
-    font-weight: bold;
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.7rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
 }
 
-.servicio-box:hover {
-    transform: translateY(-5px);
+.contact-form .btn.enviar {
+    background-color: #f97316;
+    color: #fff;
+    width: 100%;
+    border-radius: 10px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
 }
+
+.contact-form .btn.enviar:hover {
+    background-color: #d66212;
+}
+
+.contact-info img.icono {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.contact-info a:hover {
+    text-decoration: none;
+}
+
 
 
 
@@ -170,7 +185,7 @@ footer a:hover {
 }
 
 @media (max-width: 910px) {
-     body {
+    body {
         font-size: 16px;
     }
 
@@ -211,6 +226,33 @@ footer a:hover {
         width: 120px;
     }
 
+    .hero h1 {
+        font-size: 2.5rem;
+        padding: 0 1rem;
+    }
+
+    .map-container iframe {
+        height: 300px;
+    }
+
+    .section h2 {
+        font-size: 2rem;
+    }
+
+    .section p {
+        font-size: 1rem;
+    }
+
+    .como-funciona,
+    .como-usar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .icons {
+        width: 90%;
+        max-width: 320px;
+    }
 
     footer {
         flex-direction: column;

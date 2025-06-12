@@ -16,14 +16,14 @@
         <div class="logo">MECARAPPI</div>
         </button>
         <nav id="nav" class="nav">
-            <a href="login.html" class="active">Inicio</a>
+            <a href="index.html">Inicio</a>
             <a href="servicios.html">Servicio</a>
-            <a href="#">Nosotros</a>
+            <a href="nosotros.html">Nosotros</a>
             <a href="#">Contáctanos</a>
         </nav>
         <div class="btn-group">
             <button class="btn"> <a href="login.html">Iniciar Sesión</a></button>
-            <button class="btn btn-outline">Registrarse</button>
+            <button class="btn btn-outline"> <a href="login.html">Registrar</a></button>
         </div>
         <button class="menu-toggle" id="menu-toggle">
             <i class="fa-solid fa-bars"></i>
@@ -51,10 +51,10 @@
                                 .then(response => response.json())
                                 .then(data => {
                                     console.log('Ciudad recibida del servidor:', data.ciudad);
-                                    alert(`Usted está en la ciudad: ${data.ciudad}`);
+                                    alert(Usted está en la ciudad: ${data.ciudad});
 
                                     // Redirigir a la página de mecánicos
-                                    window.location.href = `mecanicos.html?ciudad=${encodeURIComponent(data.ciudad)}`;
+                                    window.location.href = mecanicos.html?ciudad=${encodeURIComponent(data.ciudad)};
                                 })
                                 .catch(error => console.error('Error al enviar coordenadas:', error));
                         },
@@ -123,7 +123,7 @@
         <div>
             <p><strong>Contacto</strong></p>
             <p>📞 +51 999999999</p>
-            <p>✉️ mecarappi@gmail.com</p>
+            <p>✉ mecarappi@gmail.com</p>
         </div>
         <div>
             <p><strong>Ubicación</strong></p>
