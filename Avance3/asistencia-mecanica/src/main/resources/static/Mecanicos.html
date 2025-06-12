@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mecánicos Disponibles</title>
+    <style>
+        /* General */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        /* Main Section */
+        main {
+            padding: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #mecanicos-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Mecánico Item */
+        .mecanico-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .mecanico-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .mecanico-item h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: #007BFF;
+        }
+
+        .mecanico-item p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .mecanico-item strong {
+            color: #333;
+        }
+
+        /* No Results */
+        #mecanicos-list p {
+            text-align: center;
+            color: #777;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .mecanico-item {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Mecánicos Disponibles</h1>
+    </header>
+    <main id="mecanicos-list">
+        <p>Cargando mecánicos disponibles...</p>
+    </main>
+
+    <script>
+        // Obtener el parámetro "ciudad" de la URL
+        const params = new URLSearchParams(window.location.search);
+        const ciudad = params.get('ciudad');
+
+        if (ciudad) {
+            // Llamar al endpoint con la ciudad
+            fetch(`/api/mecanicos/${encodeURIComponent(ciudad)}`)
+                .then(response => response.json())
+                .then(mecanicos => {
+                    const listContainer = document.getElementById('mecanicos-list');
+                    listContainer.innerHTML = '';
+
+                    if (mecanicos.length > 0) {
+                        mecanicos.forEach(mecanico => {
+                            const item = document.createElement('div');
+                            item.className = 'mecanico-item';
+                            item.innerHTML = `
+                                <h2>${mecanico.nombre}</h2>
+                                <p><strong>Experiencia:</strong> ${mecanico.experiencia} años</p>
+                                <p><strong>Calificación:</strong> ${mecanico.calificacionPromedio}</p>
+                                <p><strong>Contacto:</strong> ${mecanico.telefono} | ${mecanico.email}</p>
+                            `;
+                            listContainer.appendChild(item);
+                        });
+                    } else {
+                        listContainer.innerHTML = '<p>No se encontraron mecánicos disponibles en esta ciudad.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al obtener la lista de mecánicos:', error);
+                    document.getElementById('mecanicos-list').innerHTML = '<p>Error al cargar la lista de mecánicos.</p>';
+                });
+        } else {
+            document.getElementById('mecanicos-list').innerHTML = '<p>No se proporcionó información de la ciudad.</p>';
+        }
+    </script>
+</body>
+
+</html>

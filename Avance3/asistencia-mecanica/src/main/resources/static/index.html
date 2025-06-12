@@ -16,14 +16,14 @@
         <div class="logo">MECARAPPI</div>
         </button>
         <nav id="nav" class="nav">
-            <a href="login.html" class="active">Inicio</a>
+            <a href="index.html">Inicio</a>
             <a href="servicios.html">Servicio</a>
-            <a href="#">Nosotros</a>
+            <a href="nosotros.html">Nosotros</a>
             <a href="#">Contáctanos</a>
         </nav>
         <div class="btn-group">
             <button class="btn"> <a href="login.html">Iniciar Sesión</a></button>
-            <button class="btn btn-outline">Registrarse</button>
+            <button class="btn btn-outline"> <a href="login.html">Registrar</a></button>
         </div>
         <button class="menu-toggle" id="menu-toggle">
             <i class="fa-solid fa-bars"></i>
@@ -31,8 +31,45 @@
 
     <section class="hero">
         <h1>Asistencia mecánica <br> en carretera</h1>
-        <button class="btn">¡Solicita ayuda ahora!</button>
+        <button id="obtenerUbicacion" class="btn">¡Solicita ayuda ahora!</button>
 
+        <script>
+            document.getElementById("obtenerUbicacion").addEventListener("click", () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const lat = position.coords.latitude;
+                            const lon = position.coords.longitude;
+
+                            fetch('/api/ubicacion', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({ latitud: lat, longitud: lon }),
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log('Ciudad recibida del servidor:', data.ciudad);
+                                    alert(Usted está en la ciudad: ${data.ciudad});
+
+                                    // Redirigir a la página de mecánicos
+                                    window.location.href = mecanicos.html?ciudad=${encodeURIComponent(data.ciudad)};
+                                })
+                                .catch(error => console.error('Error al enviar coordenadas:', error));
+                        },
+                        (error) => {
+                            console.error('Error al obtener la ubicación:', error);
+                            alert('No se pudo obtener su ubicación.');
+                        }
+                    );
+                } else {
+                    alert('La geolocalización no está soportada en este navegador.');
+                }
+            });
+
+        </script>
+        
         <div class="map-container">
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9752.40215033689!2d-76.95169516911541!3d-12.05508750000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c5c021e88a9d%3A0x6748b15c61e69c7c!2sAte%2C%20Lima!5e0!3m2!1ses-419!2spe!4v1715974116812!5m2!1ses-419!2spe"
@@ -86,7 +123,7 @@
         <div>
             <p><strong>Contacto</strong></p>
             <p>📞 +51 999999999</p>
-            <p>✉️ mecarappi@gmail.com</p>
+            <p>✉ mecarappi@gmail.com</p>
         </div>
         <div>
             <p><strong>Ubicación</strong></p>
