@@ -1,0 +1,100 @@
+<!-- fragments/footer.html -->
+<footer th:fragment="footer" class="bg-header-footer text-white py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid md:grid-cols-4 gap-8">
+      <!-- Columna 1: Logo + descripción + redes -->
+      <div>
+        <div class="flex items-center space-x-2 mb-4">
+          <div
+            class="w-8 h-8 bg-primary rounded-full flex items-center justify-center"
+          >
+            <svg
+              class="w-5 h-5 text-white"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z"
+              />
+            </svg>
+          </div>
+          <span class="text-lg font-bold">MecaRappi</span>
+        </div>
+        <p class="text-gray-300 mb-4">
+          Conectando conductores con mecánicos certificados en Ate-Lima, Perú.
+        </p>
+      </div>
+
+      <!-- Columna 2: Enlaces rápidos -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
+        <ul class="space-y-2">
+          <li>
+            <a
+              th:href="@{/servicios}"
+              class="text-gray-300 hover:text-primary transition-colors"
+              >Servicios</a
+            >
+          </li>
+          <li>
+            <a
+              th:href="@{/nosotros}"
+              class="text-gray-300 hover:text-primary transition-colors"
+              >Nosotros</a
+            >
+          </li>
+          <li>
+            <a
+              th:href="@{/contactanos}"
+              class="text-gray-300 hover:text-primary transition-colors"
+              >Contáctanos</a
+            >
+          </li>
+          <li>
+            <a
+              th:href="@{/registro}"
+              class="text-gray-300 hover:text-primary transition-colors"
+              >Registrarse</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Para mecánicos -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Para Mecánicos</h3>
+        <ul class="space-y-2">
+          <li>
+            <a
+              th:href="@{/registromecanico}"
+              class="text-gray-300 hover:text-primary transition-colors"
+              >Únete como Mecánico</a
+            >
+          </li>
+          <li>
+            <a
+              th:href="@{/login}"
+              class="text-gray-300 hover:text-primary transition-colors"
+              >Portal Mecánico</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 4: Contacto -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Contacto</h3>
+        <div class="space-y-2 text-gray-300">
+          <p>📍 Ate, Lima - Perú</p>
+          <p>📞 +51 999 888 777</p>
+          <p>✉️ info@mecanicoexpress.pe</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Derechos -->
+    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+      <p>&copy; 2025 MecaRappi. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>

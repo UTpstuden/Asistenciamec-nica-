@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro - MecaRappi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ff8c00",
+              "primary-dark": "#e67e00",
+              "header-footer": "#001f3f",
+              "header-footer-light": "#003366",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-sans bg-gray-50">
+    <!-- Header -->
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Registration Section -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            Únete a <span class="text-primary">MecaRappi</span>
+          </h1>
+          <p class="text-xl text-gray-600">
+            Elige tu tipo de cuenta para comenzar
+          </p>
+        </div>
+
+        <!-- User Type Selection -->
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+          <!-- Conductor Registration -->
+          <div
+            class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow"
+          >
+            <div class="text-center mb-6">
+              <div
+                class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"
+              >
+                <svg
+                  class="w-10 h-10 text-blue-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
+                  />
+                  <path
+                    d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-1-1h-3z"
+                  />
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                Soy Conductor
+              </h2>
+              <p class="text-gray-600">
+                Solicita asistencia mecánica cuando la necesites
+              </p>
+            </div>
+
+            <div class="space-y-4 mb-8">
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="text-gray-700">Solicita asistencia 24/7</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="text-gray-700"
+                  >Rastrea tu servicio en tiempo real</span
+                >
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="text-gray-700">Historial de servicios</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="text-gray-700">Califica a los mecánicos</span>
+              </div>
+            </div>
+
+            <a
+              th:href="@{/registro/conductor}"
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors text-center block"
+            >
+              Registrarme como Conductor
+            </a>
+          </div>
+
+          <!-- Mechanic Registration -->
+          <div
+            class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow"
+          >
+            <div class="text-center mb-6">
+              <div
+                class="w-20 h-20 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4"
+              >
+                <svg
+                  class="w-10 h-10 text-primary"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                Soy Mecánico
+              </h2>
+              <p class="text-gray-600">
+                Ofrece tus servicios y genera ingresos adicionales
+              </p>
+            </div>
+
+            <div class="space-y-4 mb-8">
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="text-gray-700">Recibe solicitudes cercanas</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="text-gray-700">Gestiona tu disponibilidad</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="text-gray-700">Construye tu reputación</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="text-gray-700">Ingresos adicionales</span>
+              </div>
+            </div>
+
+            <a
+            th:href="@{/registro/mecanico}"
+              class="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors text-center block"
+            >
+              Registrarme como Mecánico
+            </a>
+          </div>
+        </div>
+
+        <!-- Login Link -->
+        <div class="text-center mt-12">
+          <p class="text-gray-600">
+            ¿Ya tienes una cuenta?
+            <a href="/login" class="text-primary hover:underline font-semibold"
+              >Inicia sesión aquí</a
+            >
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>

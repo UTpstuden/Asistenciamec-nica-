@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro Conductor - MecaRappi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ff8c00",
+              "primary-dark": "#e67e00",
+              "header-footer": "#001f3f",
+              "header-footer-light": "#003366",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-sans bg-gray-50">
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Registration Form -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
+          <div class="text-center mb-8">
+            <div
+              class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-blue-600"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
+                />
+                <path
+                  d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-1-1h-3z"
+                />
+              </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-800 mb-2">
+              Registro de Conductor
+            </h1>
+            <p class="text-gray-600">
+              Completa tus datos para acceder a nuestros servicios
+            </p>
+          </div>
+
+          <form
+            id="conductorForm"
+            th:action="@{/registro/conductor}"
+            method="post"
+            th:object="${conductor}"
+          >
+            <!-- Error Fragmento -->
+            <div th:replace="~{fragments/error :: formErrors}"></div>
+
+            <!-- Personal Information -->
+            <div class="mb-8">
+              <h3
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <svg
+                  class="w-5 h-5 mr-2 text-primary"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Información Personal
+              </h3>
+
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    for="nombres"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Nombres *
+                  </label>
+                  <input
+                    type="text"
+                    id="nombres"
+                    th:field="*{nombres}"
+                    required
+                    pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ\s\-]{2,50}"
+                    minlength="2"
+                    maxlength="50"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('nombres')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('nombres')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    for="apellidos"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Apellidos *
+                  </label>
+                  <input
+                    type="text"
+                    id="apellidos"
+                    th:field="*{apellidos}"
+                    required
+                    pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ\s\-]{2,50}"
+                    minlength="2"
+                    maxlength="50"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('apellidos')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('apellidos')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div>
+                  <label
+                    for="dni"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    DNI *
+                  </label>
+                  <input
+                    type="text"
+                    id="dni"
+                    th:field="*{dni}"
+                    required
+                    maxlength="8"
+                    pattern="[0-9]{8}"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('dni')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('dni')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    for="telefono"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Teléfono *
+                  </label>
+                  <input
+                    type="tel"
+                    id="telefono"
+                    th:field="*{telefono}"
+                    required
+                    pattern="[0-9]{9}"
+                    maxlength="9"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('telefono')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('telefono')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Correo Electrónico *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  th:field="*{email}"
+                  required
+                  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                  maxlength="100"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                />
+                <div
+                  th:if="${#fields.hasErrors('email')}"
+                  class="text-red-500 text-sm"
+                >
+                  <p
+                    th:each="err : ${#fields.errors('email')}"
+                    th:text="${err}"
+                  ></p>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div>
+                  <label
+                    for="password"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Contraseña *
+                  </label>
+                  <input
+                    type="password"
+                    id="password"
+                    th:field="*{password}"
+                    required
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$"
+                    minlength="8"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('password')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('password')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    for="confirmPassword"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Confirmar Contraseña *
+                  </label>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    required
+                    minlength="8"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Vehicle Information -->
+            <div class="mb-8">
+              <h3
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <svg
+                  class="w-5 h-5 mr-2 text-primary"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
+                  />
+                  <path
+                    d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-1-1h-3z"
+                  />
+                </svg>
+                Información del Vehículo
+              </h3>
+
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    for="marca"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Marca *
+                  </label>
+                  <select
+                    id="marca"
+                    th:field="*{vehiculo.marca}"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  >
+                    <option value="">Selecciona una marca</option>
+                    <option value="Toyota">Toyota</option>
+                    <option value="Nissan">Nissan</option>
+                    <option value="Hyundai">Hyundai</option>
+                    <option value="Kia">Kia</option>
+                    <option value="Chevrolet">Chevrolet</option>
+                    <option value="Ford">Ford</option>
+                    <option value="Volkswagen">Volkswagen</option>
+                    <option value="Honda">Honda</option>
+                    <option value="Mazda">Mazda</option>
+                    <option value="Otro">Otro</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    for="modelo"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Modelo *
+                  </label>
+                  <input
+                    type="text"
+                    id="modelo"
+                    th:field="*{vehiculo.modelo}"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('vehiculo.modelo')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('vehiculo.modelo')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-3 gap-6 mt-6">
+                <div>
+                  <label
+                    for="año"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Año *
+                  </label>
+                  <input
+                    type="number"
+                    id="año"
+                    th:field="*{vehiculo.año}"
+                    required
+                    min="1990"
+                    max="2024"
+                    onkeydown="return event.keyCode !== 69 && event.keyCode !== 189 && event.keyCode !== 109;"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('vehiculo.año')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('vehiculo.año')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    for="placa"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Placa *
+                  </label>
+                  <input
+                    type="text"
+                    id="placa"
+                    th:field="*{vehiculo.placa}"
+                    required
+                    maxlength="7"
+                    pattern="^[A-Z0-9]{3}-[0-9]{3}$"
+                    style="text-transform: uppercase"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                    placeholder="Ej: A3B-456"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('vehiculo.placa')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('vehiculo.placa')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    for="color"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Color *
+                  </label>
+                  <input
+                    type="text"
+                    id="color"
+                    th:field="*{vehiculo.color}"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <label
+                  for="tipoVehiculo"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Tipo de Vehículo *
+                </label>
+                <select
+                  id="tipoVehiculo"
+                  th:field="*{vehiculo.tipoVehiculo}"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                >
+                  <option value="">Selecciona el tipo</option>
+                  <option value="Sedan">Sedán</option>
+                  <option value="Hatchback">Hatchback</option>
+                  <option value="SUV">SUV</option>
+                  <option value="Pickup">Pickup</option>
+                  <option value="Station Wagon">Station Wagon</option>
+                  <option value="Coupe">Coupé</option>
+                  <option value="Convertible">Convertible</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="mb-8">
+              <div class="flex items-start">
+                <input
+                  type="checkbox"
+                  id="terminos"
+                  name="terminos"
+                  required
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1"
+                />
+                <label for="terminos" class="ml-3 block text-sm text-gray-700">
+                  Acepto los
+                  <a href="#" class="text-primary hover:underline"
+                    >términos y condiciones</a
+                  >
+                  y la
+                  <a href="#" class="text-primary hover:underline"
+                    >política de privacidad</a
+                  >
+                  de MecaRappi *
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div
+              class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+            >
+              <button
+                type="submit"
+                class="flex-1 bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+              >
+                Crear Cuenta
+              </button>
+              <a
+                th:href="@{/registro}"
+                class="flex-1 border border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold py-3 px-6 rounded-lg transition-colors text-center"
+              >
+                Volver
+              </a>
+            </div>
+          </form>
+
+          <!-- Login Link -->
+          <div class="text-center mt-8">
+            <p class="text-gray-600">
+              ¿Ya tienes una cuenta?
+              <a
+                th:href="@{/login}"
+                class="text-primary hover:underline font-semibold"
+                >Inicia sesión aquí</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script th:src="@{/js/script.js}"></script>
+    <script>
+      // Form validation
+      document
+        .getElementById("conductorForm")
+        .addEventListener("submit", function (e) {
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+          if (password !== confirmPassword) {
+            e.preventDefault(); // Evita solo si hay error
+            Swal.fire({
+              title: "Error",
+              text: "Las contraseñas no coinciden",
+              icon: "error",
+              confirmButtonColor: "#ff8c00",
+            });
+            return;
+          }
+        });
+    </script>
+  </body>
+</html>

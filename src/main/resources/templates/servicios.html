@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Servicios - MecaRappi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ff8c00",
+              "primary-dark": "#e67e00",
+              "header-footer": "#001f3f",
+              "header-footer-light": "#003366",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-sans">
+    <!-- Header -->
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-blue-50 to-orange-50 py-16">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+          Nuestros <span class="text-primary">Servicios</span>
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Ofrecemos una amplia gama de servicios mecánicos de emergencia para
+          mantener tu vehículo en óptimas condiciones
+        </p>
+      </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Servicio 1 -->
+          <div
+            class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center"
+            >
+              <svg
+                class="w-16 h-16 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
+                />
+                <path
+                  d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-1-1h-3z"
+                />
+              </svg>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                Cambio de Llantas
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Servicio rápido de cambio de llantas pinchadas o dañadas.
+                Incluye revisión de presión y estado general.
+              </p>
+              <ul class="text-sm text-gray-500 space-y-1 mb-4">
+                <li>• Cambio de llanta de repuesto</li>
+                <li>• Revisión de presión</li>
+                <li>• Inspección visual</li>
+              </ul>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-primary">S/ 50</span>
+                <span class="text-sm text-gray-500">Desde</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Servicio 2 -->
+          <div
+            class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center"
+            >
+              <svg
+                class="w-16 h-16 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                Batería Descargada
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Servicio de arranque con cables pasacorriente y diagnóstico del
+                sistema eléctrico del vehículo.
+              </p>
+              <ul class="text-sm text-gray-500 space-y-1 mb-4">
+                <li>• Arranque con cables</li>
+                <li>• Diagnóstico eléctrico</li>
+                <li>• Revisión de alternador</li>
+              </ul>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-primary">S/ 40</span>
+                <span class="text-sm text-gray-500">Desde</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Servicio 3 -->
+          <div
+            class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center"
+            >
+              <svg
+                class="w-16 h-16 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
+                />
+              </svg>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                Diagnóstico Motor
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Diagnóstico completo del motor con scanner automotriz para
+                identificar fallas y problemas.
+              </p>
+              <ul class="text-sm text-gray-500 space-y-1 mb-4">
+                <li>• Scanner automotriz</li>
+                <li>• Lectura de códigos</li>
+                <li>• Reporte detallado</li>
+              </ul>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-primary">S/ 80</span>
+                <span class="text-sm text-gray-500">Desde</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Servicio 4 -->
+          <div
+            class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center"
+            >
+              <svg
+                class="w-16 h-16 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                Sobrecalentamiento
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Atención inmediata para motores sobrecalentados, revisión del
+                sistema de refrigeración.
+              </p>
+              <ul class="text-sm text-gray-500 space-y-1 mb-4">
+                <li>• Revisión de radiador</li>
+                <li>• Control de líquido refrigerante</li>
+                <li>• Inspección de mangueras</li>
+              </ul>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-primary">S/ 70</span>
+                <span class="text-sm text-gray-500">Desde</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Servicio 5 -->
+          <div
+            class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center"
+            >
+              <svg
+                class="w-16 h-16 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 2L3 7v11a1 1 0 001 1h12a1 1 0 001-1V7l-7-5zM6 9.5a.5.5 0 01.5-.5h7a.5.5 0 01.5.5v1a.5.5 0 01-.5.5h-7a.5.5 0 01-.5-.5v-1z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                Fallas de Transmisión
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Diagnóstico y reparación básica de problemas en la transmisión
+                automática y manual.
+              </p>
+              <ul class="text-sm text-gray-500 space-y-1 mb-4">
+                <li>• Revisión de fluidos</li>
+                <li>• Diagnóstico básico</li>
+                <li>• Ajustes menores</li>
+              </ul>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-primary">S/ 100</span>
+                <span class="text-sm text-gray-500">Desde</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Servicio 6 -->
+          <div
+            class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center"
+            >
+              <svg
+                class="w-16 h-16 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M4 5a2 2 0 012-2v1a1 1 0 102 0V3h4v1a1 1 0 102 0V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm2.5 5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                Mantenimiento Preventivo
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Servicio completo de mantenimiento preventivo para evitar
+                averías futuras en tu vehículo.
+              </p>
+              <ul class="text-sm text-gray-500 space-y-1 mb-4">
+                <li>• Cambio de aceite</li>
+                <li>• Revisión general</li>
+                <li>• Reporte de estado</li>
+              </ul>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-primary">S/ 120</span>
+                <span class="text-sm text-gray-500">Desde</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Emergency Services -->
+    <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            Servicios de <span class="text-primary">Emergencia</span>
+          </h2>
+          <p class="text-xl text-gray-600">
+            Disponibles las 24 horas para situaciones críticas
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-white rounded-lg p-8 shadow-lg">
+            <div class="flex items-center mb-6">
+              <div
+                class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4"
+              >
+                <svg
+                  class="w-6 h-6 text-red-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-semibold text-gray-800">
+                Emergencia 24/7
+              </h3>
+            </div>
+            <p class="text-gray-600 mb-6">
+              Servicio de emergencia disponible las 24 horas del día para
+              situaciones críticas que requieren atención inmediata.
+            </p>
+            <ul class="space-y-2 text-gray-600">
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Respuesta en menos de 30 minutos
+              </li>
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Mecánicos certificados
+              </li>
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Herramientas especializadas
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-lg p-8 shadow-lg">
+            <div class="flex items-center mb-6">
+              <div
+                class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4"
+              >
+                <svg
+                  class="w-6 h-6 text-blue-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-semibold text-gray-800">
+                Servicio de Grúa
+              </h3>
+            </div>
+            <p class="text-gray-600 mb-6">
+              Cuando la reparación no es posible en el lugar, ofrecemos servicio
+              de grúa para trasladar tu vehículo al taller más cercano.
+            </p>
+            <ul class="space-y-2 text-gray-600">
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Grúas especializadas
+              </li>
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Traslado seguro
+              </li>
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Red de talleres aliados
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section
+      class="py-20 bg-gradient-to-r from-primary to-primary-dark text-white"
+    >
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">
+          ¿Necesitas alguno de estos servicios?
+        </h2>
+        <p class="text-xl mb-8 opacity-90">
+          Regístrate ahora y accede a todos nuestros servicios mecánicos
+        </p>
+        <div
+          class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4"
+        >
+          <a
+            href="/registro/conductor"
+            class="bg-white text-primary hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition-colors"
+          >
+            Registrarse como Conductor
+          </a>
+          <a
+            href="/contactanos"
+            class="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 rounded-lg text-lg font-semibold transition-colors"
+          >
+            Contactar Ahora
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>

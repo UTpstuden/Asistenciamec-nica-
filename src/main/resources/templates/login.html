@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar Sesión - MecánicoExpress</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ff8c00",
+              "primary-dark": "#e67e00",
+              "header-footer": "#001f3f",
+              "header-footer-light": "#003366",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-sans bg-gray-50">
+    <!-- Header -->
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Login Section -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8">
+          <div class="text-center mb-8">
+            <div
+              class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-primary"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-800 mb-2">
+              Iniciar Sesión
+            </h1>
+            <p class="text-gray-600">Accede a tu cuenta de MecánicoExpress</p>
+          </div>
+
+          <!-- Error Message -->
+          <div
+            id="errorMessage"
+            class="hidden mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg"
+          ></div>
+
+          <!-- Login Form -->
+          <form id="loginForm" th:object="${user}">
+            <div class="mb-6">
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Correo Electrónico
+              </label>
+              <input
+                type="email"
+                id="email"
+                th:field="*{email}"
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                placeholder="tu@email.com"
+              />
+              <div
+                th:if="${#fields.hasErrors('email')}"
+                class="text-red-500 text-sm"
+              >
+                <p
+                  th:each="err : ${#fields.errors('email')}"
+                  th:text="${err}"
+                ></p>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Contraseña
+              </label>
+              <div class="relative">
+                <input
+                  type="password"
+                  id="password"
+                  th:field="*{password}"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors pr-12"
+                  placeholder="••••••••"
+                />
+                <div
+                  th:if="${#fields.hasErrors('password')}"
+                  class="text-red-500 text-sm"
+                >
+                  <p
+                    th:each="err : ${#fields.errors('password')}"
+                    th:text="${err}"
+                  ></p>
+                </div>
+                <button
+                  type="button"
+                  onclick="togglePassword()"
+                  class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                >
+                  <svg
+                    id="eyeIcon"
+                    class="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                    <path
+                      fill-rule="evenodd"
+                      d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="remember"
+                  name="remember"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <label for="remember" class="ml-2 block text-sm text-gray-700">
+                  Recordarme
+                </label>
+              </div>
+              <a href="#" class="text-sm text-primary hover:underline">
+                ¿Olvidaste tu contraseña?
+              </a>
+            </div>
+
+            <button
+              type="submit"
+              id="loginButton"
+              class="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+            >
+              Iniciar Sesión
+            </button>
+          </form>
+
+          <!-- Divider -->
+          <div class="my-8 flex items-center">
+            <div class="flex-1 border-t border-gray-300"></div>
+            <span class="px-4 text-sm text-gray-500">o</span>
+            <div class="flex-1 border-t border-gray-300"></div>
+          </div>
+
+          <!-- Register Link -->
+          <div class="text-center">
+            <p class="text-gray-600">
+              ¿No tienes una cuenta?
+              <a
+                href="/registro"
+                class="text-primary hover:underline font-semibold"
+                >Regístrate aquí</a
+              >
+            </p>
+          </div>
+
+          <!-- User Type Selection -->
+          <div class="mt-8 grid grid-cols-2 gap-4">
+            <a
+              th:href="@{/registro/conductor}"
+              class="text-center p-4 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary hover:bg-opacity-5 transition-colors"
+            >
+              <div
+                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2"
+              >
+                <svg
+                  class="w-5 h-5 text-blue-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
+                  />
+                  <path
+                    d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-1-1h-3z"
+                  />
+                </svg>
+              </div>
+              <span class="text-sm font-medium text-gray-700"
+                >Soy Conductor</span
+              >
+            </a>
+            <a
+              th:href="@{/registro/mecanico}"
+              class="text-center p-4 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary hover:bg-opacity-5 transition-colors"
+            >
+              <div
+                class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-2"
+              >
+                <svg
+                  class="w-5 h-5 text-orange-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <span class="text-sm font-medium text-gray-700"
+                >Soy Mecánico</span
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script>
+      function togglePassword() {
+        const passwordInput = document.getElementById("password");
+        const eyeIcon = document.getElementById("eyeIcon");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          eyeIcon.innerHTML = `
+                    <path d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z"/>
+                    <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z"/>
+                `;
+        } else {
+          passwordInput.type = "password";
+          eyeIcon.innerHTML = `
+                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                `;
+        }
+      }
+
+      function showError(message) {
+        const errorDiv = document.getElementById("errorMessage");
+        errorDiv.textContent = message;
+        errorDiv.classList.remove("hidden");
+      }
+
+      function hideError() {
+        const errorDiv = document.getElementById("errorMessage");
+        errorDiv.classList.add("hidden");
+      }
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const button = document.getElementById("loginButton");
+          const originalText = button.textContent;
+          button.textContent = "Iniciando sesión...";
+          button.disabled = true;
+          hideError();
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          try {
+            const response = await fetch("/auth/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ email, password }),
+            });
+
+            if (!response.ok) {
+              const errorData = await response.json();
+              throw new Error(errorData.message || "Credenciales incorrectas");
+            }
+
+            const data = await response.json();
+
+            // Guardar el token y datos en localStorage
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("rol", data.rol);
+            localStorage.setItem("userId", data.userId);
+
+            // Mostrar mensaje de éxito
+            Swal.fire({
+              title: "¡Éxito!",
+              text: "Inicio de sesión exitoso",
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+
+            // Redirigir según el rol después de un breve delay
+            setTimeout(() => {
+              if (data.rol === "ROLE_CONDUCTOR") {
+                window.location.href = "/dashboardconductor";
+              } else if (data.rol === "ROLE_MECANICO") {
+                window.location.href = "/dashboardmecanico";
+              } else {
+                window.location.href = "/";
+              }
+            }, 1500);
+          } catch (error) {
+            showError(error.message);
+            button.textContent = originalText;
+            button.disabled = false;
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro Mecánico - MecaRappi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ff8c00",
+              "primary-dark": "#e67e00",
+              "header-footer": "#001f3f",
+              "header-footer-light": "#003366",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-sans bg-gray-50">
+    <!-- Header -->
+    <div th:replace="~{fragments/header :: header}"></div>
+    <!-- Registration Form -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-8">
+          <div class="text-center mb-8">
+            <div
+              class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-primary"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-800 mb-2">
+              Registro de Mecánico
+            </h1>
+            <p class="text-gray-600">
+              Únete a nuestra red de profesionales certificados
+            </p>
+          </div>
+
+          <form
+            id="mecanicoForm"
+            th:action="@{/registro/mecanico}"
+            method="post"
+            th:object="${mecanico}"
+          >
+            <!-- Error Fragmento -->
+            <div th:replace="~{fragments/error :: formErrors}"></div>
+            <!-- Personal Information -->
+            <div class="mb-8">
+              <h3
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <svg
+                  class="w-5 h-5 mr-2 text-primary"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Información Personal
+              </h3>
+
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    for="nombres"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Nombres *
+                  </label>
+                  <input
+                    type="text"
+                    id="nombres"
+                    th:field="*{nombres}"
+                    required
+                    pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ\s\-]{2,50}"
+                    minlength="2"
+                    maxlength="50"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('nombres')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('nombres')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    for="apellidos"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Apellidos *
+                  </label>
+                  <input
+                    type="text"
+                    id="apellidos"
+                    th:field="*{apellidos}"
+                    required
+                    pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ\s\-]{2,50}"
+                    minlength="2"
+                    maxlength="50"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('apellidos')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('apellidos')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div>
+                  <label
+                    for="dni"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    DNI *
+                  </label>
+                  <input
+                    type="text"
+                    id="dni"
+                    th:field="*{dni}"
+                    required
+                    maxlength="8"
+                    pattern="[0-9]{8}"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('dni')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('dni')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    for="telefono"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Teléfono *
+                  </label>
+                  <input
+                    type="tel"
+                    id="telefono"
+                    th:field="*{telefono}"
+                    required
+                    pattern="[0-9]{9}"
+                    maxlength="9"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('telefono')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('telefono')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Correo Electrónico *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  th:field="*{email}"
+                  required
+                  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                  maxlength="100"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                />
+                <div
+                  th:if="${#fields.hasErrors('email')}"
+                  class="text-red-500 text-sm"
+                >
+                  <p
+                    th:each="err : ${#fields.errors('email')}"
+                    th:text="${err}"
+                  ></p>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div>
+                  <label
+                    for="password"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Contraseña *
+                  </label>
+                  <input
+                    type="password"
+                    id="password"
+                    th:field="*{password}"
+                    required
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$"
+                    minlength="8"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('password')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('password')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    for="confirmPassword"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Confirmar Contraseña *
+                  </label>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    required
+                    minlength="8"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Professional Information -->
+            <div class="mb-8">
+              <h3
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <svg
+                  class="w-5 h-5 mr-2 text-primary"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
+                    clip-rule="evenodd"
+                  />
+                  <path
+                    d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"
+                  />
+                </svg>
+                Información Profesional
+              </h3>
+
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    for="experiencia"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Años de Experiencia *
+                  </label>
+                  <select
+                    id="experiencia"
+                    th:field="*{experiencia}"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  >
+                    <option value="">Selecciona</option>
+                    <option value="1-2">1-2 años</option>
+                    <option value="3-5">3-5 años</option>
+                    <option value="6-10">6-10 años</option>
+                    <option value="11-15">11-15 años</option>
+                    <option value="16+">Más de 16 años</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    for="especialidad"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Especialidad Principal *
+                  </label>
+                  <select
+                    id="especialidad"
+                    th:field="*{especialidad}"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  >
+                    <option value="">Selecciona</option>
+                    <option value="Motor">Motor</option>
+                    <option value="Transmision">Transmisión</option>
+                    <option value="Frenos">Frenos</option>
+                    <option value="Suspension">Suspensión</option>
+                    <option value="Electrico">Sistema Eléctrico</option>
+                    <option value="Aire">Aire Acondicionado</option>
+                    <option value="General">Mecánica General</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <label
+                  for="certificaciones"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Certificaciones (separadas por comas)
+                </label>
+                <textarea
+                  id="certificaciones"
+                  th:field="*{certificaciones}"
+                  required
+                  rows="3"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  placeholder="Ej: TECSUP Mecánica Automotriz, Certificación Toyota, etc."
+                ></textarea>
+                <div
+                  th:if="${#fields.hasErrors('certificaciones')}"
+                  class="text-red-500 text-sm"
+                >
+                  <p
+                    th:each="err : ${#fields.errors('certificaciones')}"
+                    th:text="${err}"
+                  ></p>
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <label
+                  for="descripcion"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Descripción Profesional
+                </label>
+                <textarea
+                  id="descripcion"
+                  th:field="*{descripcion}"
+                  rows="4"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  placeholder="Describe tu experiencia, especialidades y servicios que ofreces..."
+                ></textarea>
+                <div
+                  th:if="${#fields.hasErrors('descripcion')}"
+                  class="text-red-500 text-sm"
+                >
+                  <p
+                    th:each="err : ${#fields.errors('descripcion')}"
+                    th:text="${err}"
+                  ></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Workshop Information -->
+            <div class="mb-8">
+              <h3
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <svg
+                  class="w-5 h-5 mr-2 text-primary"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Información del Taller
+              </h3>
+
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    for="nombreTaller"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Nombre del Taller
+                  </label>
+                  <input
+                    type="text"
+                    id="nombreTaller"
+                    th:field="*{taller.nombre}"
+                    required
+                    pattern="[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ\s\-]{2,50}"
+                    minlength="2"
+                    maxlength="500"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  />
+                  <div
+                    th:if="${#fields.hasErrors('taller.nombre')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('taller.nombre')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    for="tipoServicio"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Tipo de Servicio *
+                  </label>
+                  <select
+                    id="tipoServicio"
+                    th:field="*{taller.tipoServicio}"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  >
+                    <option value="">Selecciona</option>
+                    <option value="MOVIL">Servicio Móvil</option>
+                    <option value="TALLER">Taller Fijo</option>
+                    <option value="AMBOS">Ambos</option>
+                  </select>
+                  <div
+                    th:if="${#fields.hasErrors('taller.tipoServicio')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('taller.tipoServicio')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <label
+                  for="direccionTaller"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Dirección del Taller
+                </label>
+                <input
+                  type="text"
+                  id="direccionTaller"
+                  th:field="*{taller.direccion}"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  placeholder="Dirección completa del taller (si aplica)"
+                />
+                <div
+                  th:if="${#fields.hasErrors('taller.direccion')}"
+                  class="text-red-500 text-sm"
+                >
+                  <p
+                    th:each="err : ${#fields.errors('taller.direccion')}"
+                    th:text="${err}"
+                  ></p>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div>
+                  <label
+                    for="distrito"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Distrito de Operación *
+                  </label>
+                  <select
+                    id="distrito"
+                    th:field="*{taller.distrito}"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  >
+                    <option value="">Selecciona</option>
+                    <option value="Ate">Ate</option>
+                    <option value="Santa Anita">Santa Anita</option>
+                    <option value="El Agustino">El Agustino</option>
+                    <option value="San Juan de Lurigancho">
+                      San Juan de Lurigancho
+                    </option>
+                    <option value="Chaclacayo">Chaclacayo</option>
+                    <option value="Lurigancho">Lurigancho</option>
+                  </select>
+                  <div
+                    th:if="${#fields.hasErrors('taller.distrito')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('taller.distrito')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    for="radioCobertura"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Radio de Cobertura (km) *
+                  </label>
+                  <select
+                    id="radioCobertura"
+                    th:field="*{taller.radioCobertura}"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  >
+                    <option value="">Selecciona</option>
+                    <option value="5">5 km</option>
+                    <option value="10">10 km</option>
+                    <option value="15">15 km</option>
+                    <option value="20">20 km</option>
+                  </select>
+                  <div
+                    th:if="${#fields.hasErrors('taller.radioCobertura')}"
+                    class="text-red-500 text-sm"
+                  >
+                    <p
+                      th:each="err : ${#fields.errors('taller.radioCobertura')}"
+                      th:text="${err}"
+                    ></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="mb-8">
+              <div class="flex items-start">
+                <input
+                  type="checkbox"
+                  id="terminos"
+                  name="terminos"
+                  required
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1"
+                />
+                <label for="terminos" class="ml-3 block text-sm text-gray-700">
+                  Acepto los
+                  <a href="#" class="text-primary hover:underline"
+                    >términos y condiciones</a
+                  >
+                  para mecánicos y la
+                  <a href="#" class="text-primary hover:underline"
+                    >política de privacidad</a
+                  >
+                  de MecaRappi *
+                </label>
+              </div>
+
+              <div class="flex items-start mt-4">
+                <input
+                  type="checkbox"
+                  id="verificacion"
+                  name="verificacion"
+                  required
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1"
+                />
+                <label
+                  for="verificacion"
+                  class="ml-3 block text-sm text-gray-700"
+                >
+                  Autorizo la verificación de mis credenciales profesionales y
+                  antecedentes *
+                </label>
+              </div>
+
+              <div class="flex items-start mt-4">
+                <input
+                  type="checkbox"
+                  id="promociones"
+                  name="promociones"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1"
+                />
+                <label
+                  for="promociones"
+                  class="ml-3 block text-sm text-gray-700"
+                >
+                  Deseo recibir información sobre nuevas oportunidades de
+                  trabajo
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div
+              class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+            >
+              <button
+                type="submit"
+                class="flex-1 bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+              >
+                Enviar Solicitud
+              </button>
+              <a
+                th:href="@{/registro}"
+                class="flex-1 border border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold py-3 px-6 rounded-lg transition-colors text-center"
+              >
+                Volver
+              </a>
+            </div>
+          </form>
+
+          <!-- Login Link -->
+          <div class="text-center mt-8">
+            <p class="text-gray-600">
+              ¿Ya tienes una cuenta?
+              <a
+                th:href="@{/login}"
+                class="text-primary hover:underline font-semibold"
+                >Inicia sesión aquí</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script th:src="@{/js/script.js}"></script>
+    <script>
+      // Form validation
+      document
+        .getElementById("conductorForm")
+        .addEventListener("submit", function (e) {
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+          if (password !== confirmPassword) {
+            e.preventDefault(); // Evita solo si hay error
+            Swal.fire({
+              title: "Error",
+              text: "Las contraseñas no coinciden",
+              icon: "error",
+              confirmButtonColor: "#ff8c00",
+            });
+            return;
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MecaRappi- Asistencia Mecánica de Emergencia en Lima Este</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ff8c00",
+              "primary-dark": "#e67e00",
+              "header-footer": "#001f3f",
+              "header-footer-light": "#003366",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-sans">
+    <!-- Header -->
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Hero Section -->
+    <section
+      id="inicio"
+      class="bg-gradient-to-br from-blue-50 to-orange-50 py-20"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+              Asistencia Mecánica de
+              <span class="text-primary">Emergencia</span> en Ate
+            </h1>
+            <p class="text-xl text-gray-600 mb-8">
+              Conectamos conductores con mecánicos certificados las 24 horas.
+              Servicio rápido, confiable y profesional en toda la zona de
+              Ate-Lima.
+            </p>
+            <div
+              class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+            >
+              <a
+                th:href="@{/registro/conductor}"
+                class="bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors text-center"
+              >
+                Soy Conductor
+              </a>
+              <a
+                th:href="@{/registro/mecanico}"
+                class="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors text-center"
+              >
+                Soy Mecánico
+              </a>
+            </div>
+          </div>
+          <div class="relative">
+            <img
+              src="https://images.pexels.com/photos/3806288/pexels-photo-3806288.jpeg?auto=compress&cs=tinysrgb&w=600"
+              alt="Mecánico trabajando"
+              class="rounded-lg shadow-2xl"
+            />
+            <div
+              class="absolute -bottom-6 -left-6 bg-white p-6 rounded-lg shadow-lg"
+            >
+              <div class="flex items-center space-x-3">
+                <div
+                  class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center"
+                >
+                  <svg
+                    class="w-6 h-6 text-green-600"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold text-gray-800">24/7 Disponible</p>
+                  <p class="text-sm text-gray-600">Servicio de emergencia</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            ¿Por qué elegir MecánicoExpress?
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Ofrecemos la mejor experiencia en asistencia mecánica con tecnología
+            avanzada y profesionales certificados
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <div
+            class="text-center p-6 rounded-lg hover:shadow-lg transition-shadow"
+          >
+            <div
+              class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-primary"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">
+              Ubicación en Tiempo Real
+            </h3>
+            <p class="text-gray-600">
+              Sistema GPS avanzado que conecta al mecánico más cercano a tu
+              ubicación en segundos
+            </p>
+          </div>
+
+          <div
+            class="text-center p-6 rounded-lg hover:shadow-lg transition-shadow"
+          >
+            <div
+              class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-primary"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">
+              Mecánicos Certificados
+            </h3>
+            <p class="text-gray-600">
+              Todos nuestros mecánicos están certificados y cuentan con años de
+              experiencia comprobada
+            </p>
+          </div>
+
+          <div
+            class="text-center p-6 rounded-lg hover:shadow-lg transition-shadow"
+          >
+            <div
+              class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-primary"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">
+              Servicio 24/7
+            </h3>
+            <p class="text-gray-600">
+              Disponible las 24 horas del día, los 7 días de la semana para
+              cualquier emergencia mecánica
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it Works Section -->
+    <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            ¿Cómo funciona?
+          </h2>
+          <p class="text-xl text-gray-600">
+            Proceso simple y rápido para obtener asistencia mecánica
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-8">
+          <div class="text-center">
+            <div
+              class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold"
+            >
+              1
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">
+              Solicita Ayuda
+            </h3>
+            <p class="text-gray-600">
+              Describe tu problema y comparte tu ubicación
+            </p>
+          </div>
+
+          <div class="text-center">
+            <div
+              class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold"
+            >
+              2
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">
+              Encuentra Mecánico
+            </h3>
+            <p class="text-gray-600">
+              Te conectamos con el mecánico más cercano
+            </p>
+          </div>
+
+          <div class="text-center">
+            <div
+              class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold"
+            >
+              3
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">
+              Recibe Asistencia
+            </h3>
+            <p class="text-gray-600">El mecánico llega a tu ubicación</p>
+          </div>
+
+          <div class="text-center">
+            <div
+              class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold"
+            >
+              4
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">
+              Califica Servicio
+            </h3>
+            <p class="text-gray-600">Evalúa la calidad del servicio recibido</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-header-footer text-white">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8 text-center">
+          <div>
+            <div class="text-4xl font-bold text-primary mb-2">500+</div>
+            <p class="text-lg">Mecánicos Certificados</p>
+          </div>
+          <div>
+            <div class="text-4xl font-bold text-primary mb-2">10,000+</div>
+            <p class="text-lg">Servicios Completados</p>
+          </div>
+          <div>
+            <div class="text-4xl font-bold text-primary mb-2">24/7</div>
+            <p class="text-lg">Disponibilidad</p>
+          </div>
+          <div>
+            <div class="text-4xl font-bold text-primary mb-2">4.8★</div>
+            <p class="text-lg">Calificación Promedio</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section
+      class="py-20 bg-gradient-to-r from-primary to-primary-dark text-white"
+    >
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">
+          ¿Necesitas asistencia mecánica ahora?
+        </h2>
+        <p class="text-xl mb-8 opacity-90">
+          Únete a miles de conductores que confían en MecánicoExpress
+        </p>
+        <a
+          th:href="@{/registro}"
+          class="bg-white text-primary hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition-colors inline-block"
+        >
+          Comenzar Ahora
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>

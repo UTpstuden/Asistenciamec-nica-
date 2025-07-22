@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Conductor - MecaRappi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#ff8c00",
+            "primary-dark": "#e67e00",
+            "header-footer": "#001f3f",
+            "header-footer-light": "#003366",
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="font-sans bg-gray-50">
+  <!-- Header -->
+  <header class="bg-header-footer text-white shadow-lg">
+    <nav class="container mx-auto px-4 py-4">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z" />
+            </svg>
+          </div>
+          <span class="text-xl font-bold">MecaRappi</span>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <span class="text-sm">Bienvenido,
+            <span class="font-semibold" th:text="${usuario.nombres}">Juan</span></span>
+          <div class="relative">
+            <button onclick="toggleUserMenu()"
+              class="flex items-center space-x-2 hover:bg-header-footer-light px-3 py-2 rounded-lg transition-colors">
+              <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                <span class="text-sm font-semibold text-white" th:text="${usuario.nombres.substring(0,1)}">J</span>
+              </div>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd" />
+              </svg>
+            </button>
+
+            <!-- User Menu -->
+            <div id="userMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+              <a href="#" onclick="editProfile()" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Mi Perfil</a>
+              <a href="#" onclick="editVehicle()" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Mi
+                Vehículo</a>
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Configuración</a>
+              <hr class="my-2" />
+              <a href="/logout" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Cerrar Sesión</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8">
+    <!-- Emergency Button -->
+    <div class="mb-8">
+      <div class="bg-gradient-to-r from-red-500 to-red-600 rounded-lg p-6 text-white text-center">
+        <h2 class="text-2xl font-bold mb-2">
+          ¿Necesitas Asistencia Inmediata?
+        </h2>
+        <p class="mb-4 opacity-90">
+          Presiona el botón para solicitar ayuda de emergencia
+        </p>
+<button onclick="openAssistanceModal()"
+          class="bg-white text-red-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg transition-colors">
+          🚨 SOLICITAR ASISTENCIA
+        </button>
+      </div>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Left Column -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Quick Stats -->
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                    clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm font-medium text-gray-600">
+                  Servicios Solicitados
+                </p>
+                <p class="text-2xl font-bold text-gray-900" th:text="${estadisticas.serviciosSolicitados}">
+                  12
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm font-medium text-gray-600">
+                  Servicios Completados
+                </p>
+                <p class="text-2xl font-bold text-gray-900" th:text="${estadisticas.serviciosCompletados}">
+                  10
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm font-medium text-gray-600">
+                  Calificación Promedio
+                </p>
+                <p class="text-2xl font-bold text-gray-900" th:text="${#numbers.formatDecimal(estadisticas.calificacionPromedio, 1, 'POINT', 1, 'COMMA')}">4.8</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Services -->
+        <div class="bg-white rounded-lg shadow-md">
+          <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-800">
+              Servicios Recientes
+            </h3>
+          </div>
+          <div class="p-6">
+              <div class="space-y-4">
+                <div th:each="item : ${serviceHistory}" class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                  <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center"
+                      th:classappend="${item.solicitud.estado == 'Rechazado'} ? 'bg-red-100' : (item.solicitud.estado == 'Finalizado' ? 'bg-green-500' : 'bg-yellow-100')">
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        th:classappend="${item.solicitud.estado == 'Rechazado'} ? 'text-red-600' : (item.solicitud.estado == 'Finalizado' ? 'text-green-500' : 'text-yellow-600')">
+                        <path fill-rule="evenodd"
+                          th:if="${item.solicitud.estado == 'Rechazado'}"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-11.707a1 1 0 00-1.414-1.414L10 8.586 7.707 6.293a1 1 0 00-1.414 1.414L8.586 10l-2.293 2.293a1 1 0 001.414 1.414L10 11.414l2.293 2.293a1 1 0 001.414-1.414L11.414 10l2.293-2.293z"
+                          clip-rule="evenodd" />
+                        <path fill-rule="evenodd"
+                          th:if="${item.solicitud.estado == 'Finalizado'}"
+                           d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                           clip-rule="evenodd" />
+                        <path fill-rule="evenodd"
+                          th:if="${item.solicitud.estado != 'Rechazado' and item.solicitud.estado != 'Finalizado'}"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-11a1 1 1 1 0 0 0 2 0v4a1 1 0 11-2 0V7zM10 15a1 1 0 100-2 1 1 0 000 2z"
+                          clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-semibold text-gray-800" th:text="${item.solicitud.descripcion}">Cambio de Llanta</p>
+                      <p class="text-sm text-gray-600" th:text="'Mecánico: ' + ${item.mecanicoName}">Mecánico: Carlos Mendoza</p>
+                      <p class="text-xs text-gray-500" th:text="${#dates.format(item.solicitud.fechaCreacion, 'dd MMM yyyy - HH:mm')}">15 Nov 2024 - 14:30</p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-semibold text-gray-800" th:text="${item.solicitud.estado}"></p>
+                    <div class="flex items-center space-x-2">
+                      <span class="text-yellow-400" th:text="${'★'.repeat(item.solicitud.calificacion != null ? item.solicitud.calificacion.intValue() : 0)}">★★★★★</span>
+                      <span class="text-xs text-gray-500 ml-1" th:text="${item.solicitud.calificacion != null ? item.solicitud.calificacion.toString() : ''}">5</span>
+                      <button type="button" class="ml-4 bg-primary hover:bg-primary-dark text-white py-1 px-3 rounded" th:if="${item.solicitud.estado == 'Finalizado' and item.solicitud.calificacion == null}" th:onclick="'openRatingModal(' + ${item.solicitud.idSolicitud} + ')'">Calificar</button>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
+            <div class="mt-6 text-center">
+              <a href="#" class="text-primary hover:underline font-medium">Ver Historial Completo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-6">
+        <!-- Vehicle Info -->
+        <div class="bg-white rounded-lg shadow-md">
+          <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-800">Mi Vehículo</h3>
+          </div>
+          <div class="p-6">
+            <div class="text-center mb-4">
+              <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                  <path
+                    d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-1-1h-3z" />
+                </svg>
+              </div>
+              <h4 class="font-semibold text-gray-800" th:text="${vehiculo.marca + ' ' + vehiculo.modelo}">
+                Toyota Corolla
+              </h4>
+              <p class="text-sm text-gray-600" th:text="${vehiculo.año}">
+                2020
+              </p>
+            </div>
+
+            <div class="space-y-3">
+              <div class="flex justify-between">
+                <span class="text-sm text-gray-600">Placa:</span>
+                <span class="text-sm font-medium" th:text="${vehiculo.placa}">ABC-123</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-sm text-gray-600">Color:</span>
+                <span class="text-sm font-medium" th:text="${vehiculo.color}">Blanco</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-sm text-gray-600">Tipo:</span>
+                <span class="text-sm font-medium" th:text="${vehiculo.tipoVehiculo}">Sedán</span>
+              </div>
+            </div>
+
+            <button onclick="editVehicle()"
+              class="w-full mt-4 bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-lg transition-colors">
+              Editar Información
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-lg shadow-md">
+          <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-800">
+              Acciones Rápidas
+            </h3>
+          </div>
+          <div class="p-6 space-y-3">
+            <button onclick="requestService()"
+              class="w-full bg-primary hover:bg-primary-dark text-white py-3 px-4 rounded-lg transition-colors flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                  clip-rule="evenodd" />
+              </svg>
+              Solicitar Servicio
+            </button>
+
+            <button onclick="findMechanics()"
+              class="w-full border border-primary text-primary hover:bg-primary hover:text-white py-3 px-4 rounded-lg transition-colors flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                  clip-rule="evenodd" />
+              </svg>
+              Buscar Mecánicos
+            </button>
+
+            <button onclick="viewHistory()"
+              class="w-full border border-gray-300 text-gray-700 hover:bg-gray-50 py-3 px-4 rounded-lg transition-colors flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                  clip-rule="evenodd" />
+              </svg>
+              Ver Historial
+            </button>
+          </div>
+        </div>
+
+        <!-- Support -->
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-3">
+            ¿Necesitas Ayuda?
+          </h3>
+          <p class="text-sm text-gray-600 mb-4">
+            Nuestro equipo de soporte está disponible 24/7 para ayudarte
+          </p>
+          <div class="space-y-2">
+            <a href="tel:+51999888777"
+              class="block w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors text-center">
+              📞 Llamar Soporte
+            </a>
+            <a href="/contactanos"
+              class="block w-full border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white py-2 px-4 rounded-lg transition-colors text-center">
+              💬 Chat en Línea
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modals -->
+  <!-- Edit Profile Modal -->
+  <div id="editProfileModal"
+    class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg max-w-md w-full p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold">Editar Perfil</h3>
+        <button onclick="closeModal('editProfileModal')" class="text-gray-500 hover:text-gray-700">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+      <form>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Nombres</label>
+            <input type="text"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+              value="Juan Carlos" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Apellidos</label>
+            <input type="text"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+              value="Pérez García" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+            <input type="tel"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+              value="+51 999 123 456" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+              value="juan@email.com" />
+          </div>
+        </div>
+        <div class="flex space-x-3 mt-6">
+          <button type="submit"
+            class="flex-1 bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-lg transition-colors">
+            Guardar
+          </button>
+          <button type="button" onclick="closeModal('editProfileModal')"
+            class="flex-1 border border-gray-300 text-gray-700 hover:bg-gray-50 py-2 px-4 rounded-lg transition-colors">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Solicitar Asistencia Modal -->
+  <div id="solicitarAsistenciaModal"
+    class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg max-w-md w-full p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold">Solicitar Asistencia</h3>
+        <button onclick="closeModal('solicitarAsistenciaModal')" class="text-gray-500 hover:text-gray-700">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+      <form id="solicitarAsistenciaForm">
+        <div class="space-y-4">
+          <label for="tipoProblema" class="block text-sm font-medium text-gray-700">Tipo de Problema</label>
+          <select id="tipoProblema" name="tipoProblema" required
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            <option value="" disabled selected>Seleccione un problema</option>
+            <option value="Cambio de llantas (S/50)">Cambio de llantas (S/50)</option>
+            <option value="Bateria descargada (S/40)">Bateria descargada (S/40)</option>
+            <option value="Diagnóstico Motor (S/80)">Diagnóstico Motor (S/80)</option>
+            <option value="Fallas de Transmisión (S/100)">Fallas de Transmisión (S/100)</option>
+            <option value="Sobrecalentamiento (S/70)">Sobrecalentamiento (S/70)</option>
+          </select>
+        </div>
+        <div class="flex space-x-3 mt-6">
+          <button type="submit"
+            class="flex-1 bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-lg transition-colors">
+            Enviar Solicitud
+          </button>
+          <button type="button" onclick="closeModal('solicitarAsistenciaModal')"
+            class="flex-1 border border-gray-300 text-gray-700 hover:bg-gray-50 py-2 px-4 rounded-lg transition-colors">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Toggle user menu
+    function toggleUserMenu() {
+      const menu = document.getElementById("userMenu");
+      menu.classList.toggle("hidden");
+    }
+
+    // Close user menu when clicking outside
+    document.addEventListener("click", function (event) {
+      const menu = document.getElementById("userMenu");
+      const button = event.target.closest("button");
+      if (
+        !button ||
+        !button.onclick ||
+        button.onclick.toString().indexOf("toggleUserMenu") === -1
+      ) {
+        menu.classList.add("hidden");
+      }
+    });
+
+    // Modal functions
+    function editProfile() {
+      document.getElementById("editProfileModal").classList.remove("hidden");
+    }
+
+    function editVehicle() {
+      document.getElementById("editVehicleModal").classList.remove("hidden");
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.add("hidden");
+    }
+
+    function openAssistanceModal() {
+      document.getElementById("solicitarAsistenciaModal").classList.remove("hidden");
+    }
+
+    // Form submission for Solicitar Asistencia
+    document.getElementById("solicitarAsistenciaForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const tipoProblemaSelect = document.getElementById("tipoProblema");
+      const descripcion = tipoProblemaSelect.value;
+      if (!descripcion) {
+        alert("Por favor, seleccione un tipo de problema.");
+        return;
+      }
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+
+          fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+            .then(response => response.json())
+            .then(data => {
+              const city = data.address.city || data.address.town || data.address.village || "Ubicación desconocida";
+
+              fetch('/dashboardconductor/solicitar-asistencia', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                  descripcion: descripcion,
+                  lugar: city,
+                  latitud: lat,
+                  longitud: lon
+                })
+              }).then(response => {
+                if (response.ok) {
+                  closeModal('solicitarAsistenciaModal');
+                  Swal.fire({
+                    title: "¡Solicitud Enviada!",
+                    text: "Su solicitud de asistencia ha sido registrada.",
+                    icon: "success",
+                    confirmButtonColor: "#ff8c00",
+                  });
+                } else {
+                  Swal.fire({
+                    title: "Error",
+                    text: "No se pudo enviar la solicitud. Intente nuevamente.",
+                    icon: "error",
+                    confirmButtonColor: "#ff8c00",
+                  });
+                }
+              }).catch(() => {
+                Swal.fire({
+                  title: "Error",
+                  text: "No se pudo enviar la solicitud. Intente nuevamente.",
+                  icon: "error",
+                  confirmButtonColor: "#ff8c00",
+                });
+              });
+            })
+            .catch(() => {
+              Swal.fire({
+                title: "Error",
+                text: "No se pudo obtener la ubicación. Intente nuevamente.",
+                icon: "error",
+                confirmButtonColor: "#ff8c00",
+              });
+            });
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "Tu navegador no soporta geolocalización.",
+          icon: "error",
+          confirmButtonColor: "#ff8c00",
+        });
+      }
+    });
+
+    // Emergency assistance (removed or kept for other uses)
+    function requestEmergencyAssistance() {
+      // This function is no longer used by the button
+    }
+
+    // Other functions
+    function requestService() {
+      window.location.href = "/solicitar-servicio";
+    }
+
+    function findMechanics() {
+      window.location.href = "/buscar-mecanicos";
+    }
+
+    function viewHistory() {
+      window.location.href = "/historial-servicios";
+    }
+  </script>
+  <script src="/js/script.js"></script>
+  </body>
+
+  </html>
